@@ -25,13 +25,13 @@
                     <li class="sidebar-item {% if request.resolver_match.url_name == 'debit_list' %} active {% endif %}">
                         <a href="{% url 'tabungan:debit_list' %}" class='sidebar-link'>
                             <i class="fa fa-arrow-right"></i>
-                            <span>Debit</span>
+                            <span>Setor</span>
                         </a>
                     </li>
                     <li class="sidebar-item {% if request.resolver_match.url_name == 'kredit_list' %} active {% endif %}">
                         <a href="{% url 'tabungan:kredit_list' %}" class='sidebar-link'>
                             <i class="fa fa-arrow-left"></i>
-                            <span>Kredit</span>
+                            <span>Tarik</span>
                         </a>
                     </li>
                     <li class="sidebar-title">Admin</li>
