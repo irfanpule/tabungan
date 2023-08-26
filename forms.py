@@ -10,7 +10,7 @@ from .utils import get_saldo
 class DebitForm(forms.ModelForm):
     class Meta:
         model = Debit
-        fields = '__all__'
+        fields = ('nominal', 'siswa', 'petugas')
         widgets = {
             'siswa': forms.HiddenInput(),
             'petugas': forms.HiddenInput()
@@ -20,7 +20,7 @@ class DebitForm(forms.ModelForm):
 class KreditForm(forms.ModelForm):
     class Meta:
         model = Kredit
-        fields = '__all__'
+        fields = ('nominal', 'siswa', 'petugas')
         widgets = {
             'siswa': forms.HiddenInput(),
             'petugas': forms.HiddenInput()
