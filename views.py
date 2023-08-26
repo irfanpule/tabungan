@@ -2,13 +2,14 @@ import sweetify
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from core.mixin import FormFilterMixin
 from core.views import (
     ListBreadcrumbView, CreateBreadcrumbView, UpdateBreadcrumbView, BaseDeleteView, DetailBreadcrumbView,
 )
 from .models import Debit, Kredit
-from .forms import DebitForm, KreditForm, FilterSiswaForm
+from .forms import DebitForm, KreditForm, FilterSiswaAndSekolahForm, FilterSiswaForm
 from .utils import get_saldo
 
 
@@ -24,7 +25,7 @@ class DebitListView(ListBreadcrumbView):
 
 class DebitCreateView(FormFilterMixin, CreateBreadcrumbView):
     form_class = DebitForm
-    form_filter = FilterSiswaForm
+    form_filter = FilterSiswaAndSekolahForm
     model = Debit
     template_name = 'tabungan/form_add.html'
     title_page = 'Tambah data debit'
@@ -100,7 +101,7 @@ class KreditListView(ListBreadcrumbView):
 
 class KreditCreateView(FormFilterMixin, CreateBreadcrumbView):
     form_class = KreditForm
-    form_filter = FilterSiswaForm
+    form_filter = FilterSiswaAndSekolahForm
     model = Kredit
     template_name = 'tabungan/form_add.html'
     title_page = 'Tambah data kredit'
@@ -167,3 +168,16 @@ class KreditDeleteView(BaseDeleteView):
     def get_success_url(self):
         sweetify.toast(self.request, "Berhasil menghapus data kredit", timer=5000)
         return reverse('tabungan:kredit_list')
+
+
+class CekSaldoView(FormFilterMixin, TemplateView):
+    form_filter = FilterSiswaForm
+    template_name = 'tabungan/cek_saldo.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        filter_fields = self.get_form_filter_fields()
+        if filter_fields.get('siswa'):
+            context['siswa'] = filter_fields['siswa']
+            context['saldo'] = get_saldo(filter_fields['siswa'])
+        return context

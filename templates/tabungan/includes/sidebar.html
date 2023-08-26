@@ -34,6 +34,12 @@
                             <span>Tarik</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {% if request.resolver_match.url_name == 'cek_saldo' %} active {% endif %}">
+                        <a href="{% url 'tabungan:cek_saldo' %}" class='sidebar-link'>
+                            <i class="fa fa-money-bill"></i>
+                            <span>Cek Saldo</span>
+                        </a>
+                    </li>
                     <li class="sidebar-title">Admin</li>
                     <li class="sidebar-item">
                         <a href="{% url 'dashboard:home' %}" class='sidebar-link'>

@@ -16,4 +16,6 @@ urlpatterns = [
     path('kredit/edit/<uuid:id>/', views.KreditUpdateView.as_view(), name='kredit_update'),
     path('kredit/detail/<uuid:id>/', views.KreditDetailView.as_view(), name='kredit_detail'),
     path('kredit/delete/<uuid:id>/', views.KreditDeleteView.as_view(), name='kredit_delete'),
+
+    path('cek-saldo/', views.CekSaldoView.as_view(), name='cek_saldo'),
 ]

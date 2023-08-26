@@ -35,7 +35,7 @@ class KreditForm(forms.ModelForm):
         return cleaned_data
 
 
-class FilterSiswaForm(forms.Form):
+class FilterSiswaAndSekolahForm(forms.Form):
     sekolah = forms.ModelChoiceField(
         queryset=Sekolah.objects.filter(aktif=True),
         widget=ModelSelect2Widget(
@@ -51,3 +51,15 @@ class FilterSiswaForm(forms.Form):
             dependent_fields={'sekolah': 'sekolah'}
         )
     )
+
+
+class FilterSiswaForm(forms.Form):
+    siswa = forms.ModelChoiceField(
+        queryset=Siswa.objects.all(),
+        widget=ModelSelect2Widget(
+            model=Siswa,
+            search_fields=['nama__icontains', 'nis__icontains'],
+        ),
+        help_text="Masukan Nama siswa atau NIS"
+    )
+
