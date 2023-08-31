@@ -8,8 +8,8 @@ from core.mixin import FormFilterMixin
 from core.views import (
     ListBreadcrumbView, CreateBreadcrumbView, UpdateBreadcrumbView, BaseDeleteView, DetailBreadcrumbView,
 )
-from .models import Debit, Kredit
-from .forms import DebitForm, KreditForm, FilterSiswaAndSekolahForm, FilterSiswaForm
+from .models import Debit, Kredit, Tenan
+from .forms import DebitForm, KreditForm, FilterSiswaAndSekolahForm, FilterSiswaForm, TenanForm
 from .utils import get_saldo
 
 
@@ -181,3 +181,48 @@ class CekSaldoView(FormFilterMixin, TemplateView):
             context['siswa'] = filter_fields['siswa']
             context['saldo'] = get_saldo(filter_fields['siswa'])
         return context
+
+
+class TenanListView(ListBreadcrumbView):
+    model = Tenan
+    title_page = 'Data Tenan'
+
+
+class TenanCreateView(CreateBreadcrumbView):
+    form_class = TenanForm
+    model = Kredit
+    template_name = 'tabungan/form.html'
+    title_page = 'Tambah data tenan'
+    btn_submit_name = 'Simpan'
+
+    def get_success_url(self):
+        sweetify.toast(self.request, "Berhasil menambahkan data kredit", timer=5000)
+        return reverse('tabungan:tenan_list')
+
+
+class TenanUpdateView(UpdateBreadcrumbView):
+    model = Tenan
+    form_class = TenanForm
+    template_name = 'tabungan/form.html'
+    title_page = 'Edit data tenan'
+    btn_submit_name = 'Simpan'
+
+    def get_success_url(self):
+        sweetify.toast(self.request, "Berhasil mengubah data tenan", timer=5000)
+        return reverse('tabungan:tenan_list')
+
+
+class TenanDetailView(DetailBreadcrumbView):
+    model = Tenan
+    template_name = 'tabungan/general_detail.html'
+
+    def get_title_page(self):
+        return "Detail Tenan"
+
+
+class TenanDeleteView(BaseDeleteView):
+    model = Tenan
+
+    def get_success_url(self):
+        sweetify.toast(self.request, "Berhasil menghapus data tenan", timer=5000)
+        return reverse('tabungan:tenan_list')

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = 'tabungan'
@@ -18,4 +18,12 @@ urlpatterns = [
     path('kredit/delete/<uuid:id>/', views.KreditDeleteView.as_view(), name='kredit_delete'),
 
     path('cek-saldo/', views.CekSaldoView.as_view(), name='cek_saldo'),
+
+    path('tenan/list/', views.TenanListView.as_view(), name='tenan_list'),
+    path('tenan/create/', views.TenanCreateView.as_view(), name='tenan_create'),
+    path('tenan/edit/<uuid:id>/', views.TenanUpdateView.as_view(), name='tenan_update'),
+    path('tenan/detail/<uuid:id>/', views.TenanDetailView.as_view(), name='tenan_detail'),
+    path('tenan/delete/<uuid:id>/', views.TenanDeleteView.as_view(), name='tenan_delete'),
+
+    path('api/', include('addons.tabungan.api.urls'))
 ]

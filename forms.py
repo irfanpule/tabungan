@@ -3,7 +3,7 @@ from django_select2.forms import ModelSelect2Widget
 
 from sekolah.models import Sekolah
 from siswa.models import Siswa
-from .models import Debit, Kredit
+from .models import Debit, Kredit, Tenan
 from .utils import get_saldo
 
 
@@ -63,3 +63,15 @@ class FilterSiswaForm(forms.Form):
         help_text="Masukan Nama siswa atau NIS"
     )
 
+
+class TenanForm(forms.ModelForm):
+    class Meta:
+        model = Tenan
+        fields = '__all__'
+        widgets = {
+            'sekolah': ModelSelect2Widget(
+                model=Sekolah,
+                search_fields=['nama__icontains'],
+                help_text="Ketik Nama Sekolah"
+            ),
+        }

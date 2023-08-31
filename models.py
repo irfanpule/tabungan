@@ -30,3 +30,29 @@ class Kredit(BaseModel):
 
     def __str__(self):
         return f"{self.siswa} - {self.nominal}"
+
+
+class Tenan(BaseModel):
+    nama = models.CharField(max_length=220)
+    alamat = models.TextField()
+    no_hp = models.CharField(max_length=15)
+    sekolah = models.ForeignKey("sekolah.Sekolah", on_delete=models.SET_NULL, null=True,
+                                help_text="Pilih jika tenan berada pada sekolah mana")
+    id_perangkat = models.CharField(max_length=150, unique=True,
+                                    help_text="ID dapat ditemukan pada bagian bawah perangkat")
+    jenis = models.CharField(max_length=150, blank=True, null=True,
+                             help_text="Jenis dapat ditemukan pada bagian bawah perangkat, jika tidak ditemukan "
+                                       "bisa dikosongkan")
+
+    def __str__(self):
+        return f"{self.nama} - {self.sekolah.nama}"
+
+
+class Transaksi(BaseModel):
+    no_transaksi_tenan = models.CharField(max_length=100, help_text="no ini didapatkan dari sistem pembayaran tenan")
+    tenan = models.ForeignKey(Tenan, on_delete=models.CASCADE)
+    kredit = models.ForeignKey(Kredit, on_delete=models.CASCADE)
+    nominal = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.no_transaksi_tenan} - {self.tenan} - {self.nominal}"
