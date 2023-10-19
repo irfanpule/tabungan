@@ -28,7 +28,7 @@
             <div class="col-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <img src="{% if siswa.foto %}{{ siswa.foto.url }}{% endif %}" alt="avatar"
+                        <img src="{{ siswa.get_foto }}" alt="avatar"
                           class="rounded-circle img-fluid" style="width: 150px;">
                         <h5 class="my-3">{{ siswa.nama }}</h5>
                         <p class="text-muted mb-1">NIS: {{ siswa.nis }}</p>

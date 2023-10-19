@@ -15,12 +15,16 @@ from .utils import get_saldo
 
 @login_required
 def index(request):
-    return render(request, 'tabungan/index.html')
+    context = {
+        'active_menu': 'dashboard',
+    }
+    return render(request, 'tabungan/index.html', context)
 
 
 class DebitListView(ListBreadcrumbView):
     model = Debit
     title_page = 'Data Debit'
+    active_menu = 'debit'
 
 
 class DebitCreateView(FormFilterMixin, CreateBreadcrumbView):
@@ -30,6 +34,7 @@ class DebitCreateView(FormFilterMixin, CreateBreadcrumbView):
     template_name = 'tabungan/form_add.html'
     title_page = 'Tambah data debit'
     btn_submit_name = 'Simpan'
+    active_menu = 'debit'
 
     def get_form(self, form_class=None):
         if form_class is None:
@@ -64,6 +69,7 @@ class DebitUpdateView(UpdateBreadcrumbView):
     template_name = 'tabungan/form_edit.html'
     title_page = 'Edit data debit'
     btn_submit_name = 'Simpan'
+    active_menu = 'debit'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -81,6 +87,7 @@ class DebitUpdateView(UpdateBreadcrumbView):
 class DebitDetailView(DetailBreadcrumbView):
     model = Debit
     template_name = 'tabungan/general_detail.html'
+    active_menu = 'debit'
 
     def get_title_page(self):
         return "Detail Debit"
@@ -97,6 +104,7 @@ class DebitDeleteView(BaseDeleteView):
 class KreditListView(ListBreadcrumbView):
     model = Kredit
     title_page = 'Data Kredit'
+    active_menu = 'kredit'
 
 
 class KreditCreateView(FormFilterMixin, CreateBreadcrumbView):
@@ -106,6 +114,7 @@ class KreditCreateView(FormFilterMixin, CreateBreadcrumbView):
     template_name = 'tabungan/form_add.html'
     title_page = 'Tambah data kredit'
     btn_submit_name = 'Simpan'
+    active_menu = 'kredit'
 
     def get_form(self, form_class=None):
         if form_class is None:
@@ -140,6 +149,7 @@ class KreditUpdateView(UpdateBreadcrumbView):
     template_name = 'tabungan/form_edit.html'
     title_page = 'Edit data kredit'
     btn_submit_name = 'Simpan'
+    active_menu = 'kredit'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -157,6 +167,7 @@ class KreditUpdateView(UpdateBreadcrumbView):
 class KreditDetailView(DetailBreadcrumbView):
     model = Kredit
     template_name = 'tabungan/general_detail.html'
+    active_menu = 'kredit'
 
     def get_title_page(self):
         return "Detail Kredit"
@@ -173,6 +184,7 @@ class KreditDeleteView(BaseDeleteView):
 class CekSaldoView(FormFilterMixin, TemplateView):
     form_filter = FilterSiswaForm
     template_name = 'tabungan/cek_saldo.html'
+    active_menu = 'cek_saldo'
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -186,6 +198,7 @@ class CekSaldoView(FormFilterMixin, TemplateView):
 class TenanListView(ListBreadcrumbView):
     model = Tenan
     title_page = 'Data Tenan'
+    active_menu = 'tenan'
 
 
 class TenanCreateView(CreateBreadcrumbView):
@@ -194,6 +207,7 @@ class TenanCreateView(CreateBreadcrumbView):
     template_name = 'tabungan/form.html'
     title_page = 'Tambah data tenan'
     btn_submit_name = 'Simpan'
+    active_menu = 'tenan'
 
     def get_success_url(self):
         sweetify.toast(self.request, "Berhasil menambahkan data kredit", timer=5000)
@@ -206,6 +220,7 @@ class TenanUpdateView(UpdateBreadcrumbView):
     template_name = 'tabungan/form.html'
     title_page = 'Edit data tenan'
     btn_submit_name = 'Simpan'
+    active_menu = 'tenan'
 
     def get_success_url(self):
         sweetify.toast(self.request, "Berhasil mengubah data tenan", timer=5000)
@@ -215,6 +230,7 @@ class TenanUpdateView(UpdateBreadcrumbView):
 class TenanDetailView(DetailBreadcrumbView):
     model = Tenan
     template_name = 'tabungan/general_detail.html'
+    active_menu = 'tenan'
 
     def get_title_page(self):
         return "Detail Tenan"
