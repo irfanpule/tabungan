@@ -1,0 +1,29 @@
+.DS_Store
+*/CACHE/*
+*.pyc
+*.pyo
+*.so
+*~
+*.db
+*.jpg.*
+*.tmproj
+*.sqlite
+env/*
+logs/*
+tmp/*
+.cache
+
+*.sqlite3
+db.*
+
+# IDE Setting
+.vscode/*
+.idea/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# pyenv
+.python-version
